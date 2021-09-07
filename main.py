@@ -36,7 +36,7 @@ def home():
     """
     Render home page
     """
-    return render_template("index.html")
+    return render_template("index.html", data={})
 
 
 @app.route('/', methods=['POST'])
@@ -45,7 +45,7 @@ def check_password():
     password = request.form["password"]
     # If no password is entered
     if not password:
-        print("Please enter password")
+        return render_template("index.html", data={"strength": "Please enter the password first"})
 
     # Load models
     vectorizer = pickle.load(open("vectorizer.pkl", 'rb'))
