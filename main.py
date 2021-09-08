@@ -15,11 +15,10 @@ def words_to_char(password):
 
 def check_probability_strength(prediction, probability):
     """
-    Return whether password in weak, average or strong, based on prediction
+    Return whether password in weak, average or strong, based on probability
     """
     if(prediction == 0):
         return "Weak Password"
-        return templates.TemplateResponse("index.html", context={"request": request, "strength": ""})
 
     elif(prediction == 1):
         return "Average Password"
@@ -41,9 +40,14 @@ def home():
 
 @app.route('/', methods=['POST'])
 def check_password():
+    """
+    When user enters password to check its strength
+    """
+
     # Get password from front end
     password = request.form["password"]
-    # If no password is entered
+
+    # If no password is entered display message to enter password first
     if not password:
         return render_template("index.html", data={"strength": "Please enter the password first"})
 
@@ -51,21 +55,21 @@ def check_password():
     vectorizer = pickle.load(open("vectorizer.pkl", 'rb'))
     model = pickle.load(open("xgb_classifier.pkl", 'rb'))
 
-    # Now we have to convert password into list else it will give error while we are trying to predict
+    # Now we have to convert password into list else it will give error while we are trying to predict using models
     password = [password]
 
-    # Predicted for the given password
+    # Predict for the given password
     password_vector = vectorizer.transform(password)
     prediction = model.predict(password_vector)
 
     # predict_proba gives probability estimates
     probability = model.predict_proba(password_vector)
-    
     password_strength = check_probability_strength(prediction, probability)
+
     # Return response
-    print(password_strength)
+    # print(password_strength)
     return render_template("index.html", data={"strength": password_strength})
     
 
 if __name__ == "__main__":
-    app.run(debug=True) 
+    app.run(debug=True)
