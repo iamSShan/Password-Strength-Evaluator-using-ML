@@ -13,6 +13,10 @@ def words_to_char(password):
     return characters
 
 
+import __main__
+__main__.words_to_char = words_to_char
+
+
 def check_probability_strength(prediction, probability):
     """
     Return whether password in weak, average or strong, based on probability
@@ -51,9 +55,11 @@ def check_password():
     if not password:
         return render_template("index.html", data={"strength": "Please enter the password first"})
 
+    # print("Model loading")
     # Load models
     vectorizer = pickle.load(open("vectorizer.pkl", 'rb'))
     model = pickle.load(open("xgb_classifier.pkl", 'rb'))
+    # print("Model loaded")
 
     # Now we have to convert password into list else it will give error while we are trying to predict using models
     password = [password]
