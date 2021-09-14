@@ -4,8 +4,10 @@
 Evaulates strength of password entered by user using Machine learning models.
 
 # Demo
-![Demo Gif](./static/img/demo.gif)
 
+Live at: https://password-se.herokuapp.com/
+
+![Demo Gif](./static/img/demo.gif)
 
 ## Installation
 
@@ -50,8 +52,11 @@ To run this project
         python main.py
     ```
 
+
 ## Tech Stack
 
 **Frontend:** HTML, Css, JavaScipt, Jinja
 
-**Backend:** Python with Flask, Jupyter Notebook  
+**Backend:** Python with Flask, Jupyter Notebook 
+
+**Server:** Heroku

@@ -13,6 +13,8 @@ def words_to_char(password):
     return characters
 
 
+# These two lines are added so it won't give error on Heroku when gunicorn is trying to find `words_to_char` function
+# Read: https://stackoverflow.com/questions/64055214/python-flask-app-runs-locally-but-returns-attributeerror-when-hosted-on-heroku#64056687
 import __main__
 __main__.words_to_char = words_to_char
 
